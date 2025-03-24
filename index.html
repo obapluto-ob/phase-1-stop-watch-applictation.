@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stopwatch</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <div class="stopwatch">
+            <h1 id="display">00:00:00.000</h1>
+            <button id="start">Start</button>
+            <button id="stop">Stop</button>
+            <button id="reset">Reset</button>
+            <button id="lap">Lap</button>
+            <button id="microseconds">Toggle Microseconds</button>
+            <input type="text" id="city" placeholder="Enter city name">
+            <button id="temperature">Show Temperature</button>
+            <button id="toggle-dark-mode">Toggle Dark Mode</button>
+        </div>
+
+        <div class="laps">
+            <h2>Laps</h2>
+            <ul id="laps-list"></ul>
+        </div>
+
+        <div class="clock">
+            <h2 id="current-time">Current Time: 00:00:00</h2>
+        </div>
+
+        <div class="calendar">
+            <h2 id="current-date">Current Date: 2025-03-24</h2>
+        </div>
+
+        <div class="temperature">
+            <h2 id="current-temperature">Current Temperature: --°C</h2>
+            <p id="weather-description"></p>
+            <img id="weather-icon" src="" alt="Weather Icon" style="display: none;">
+        </div>
+    </div>
+
+    <script src="script.js" defer></script>
+</body>
+</html>

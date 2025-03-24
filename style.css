@@ -1,0 +1,182 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    margin: 20px;
+    background: linear-gradient(135deg, #004d40 0%, #00796b 100%);
+    color: #ffffff;
+}
+
+body.dark-mode {
+    background: linear-gradient(135deg, #1c1c1c 0%, #333333 100%);
+    color: #ffffff;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.stopwatch {
+    background: #004d40;
+    display: inline-block;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease;
+    margin-bottom: 20px;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.stopwatch:hover {
+    transform: scale(1.05);
+}
+
+h1 {
+    font-size: 2em;
+    color: #ffffff;
+    margin-bottom: 20px;
+}
+
+button, input[type="text"] {
+    font-size: 1em;
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+    background-color: #00796b;
+    color: white;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    animation: fadeIn 1s ease-in-out;
+}
+
+button:hover, input[type="text"]:hover {
+    background-color: #004d40;
+    transform: scale(1.1);
+}
+
+button:active, input[type="text"]:active {
+    background-color: #00332c;
+    transform: scale(1.05);
+}
+
+#start {
+    background-color: #388e3c;
+}
+
+#start:hover {
+    background-color: #2e7d32;
+}
+
+#start:active {
+    background-color: #1b5e20;
+}
+
+#stop {
+    background-color: #d32f2f;
+}
+
+#stop:hover {
+    background-color: #c62828;
+}
+
+#stop:active {
+    background-color: #b71c1c;
+}
+
+#reset {
+    background-color: #fbc02d;
+    color: black;
+}
+
+#reset:hover {
+    background-color: #f9a825;
+}
+
+#reset:active {
+    background-color: #f57f17;
+}
+
+#microseconds {
+    background-color: #0288d1;
+}
+
+#microseconds:hover {
+    background-color: #0277bd;
+}
+
+#microseconds:active {
+    background-color: #01579b;
+}
+
+#temperature {
+    background-color: #8e24aa;
+}
+
+#temperature:hover {
+    background-color: #7b1fa2;
+}
+
+#temperature:active {
+    background-color: #6a1b9a;
+}
+
+#toggle-dark-mode {
+    background-color: #004d40;
+}
+
+#toggle-dark-mode:hover {
+    background-color: #00332c;
+}
+
+#toggle-dark-mode:active {
+    background-color: #00251a;
+}
+
+.clock, .calendar, .temperature, .laps {
+    margin-top: 10px;
+    animation: fadeIn 1s ease-in-out;
+}
+
+#current-time, #current-date, #current-temperature, #weather-description {
+    font-size: 1.5em;
+    color: #ffffff;
+}
+
+#weather-icon {
+    width: 40px;
+    height: 40px;
+    vertical-align: middle;
+    margin-left: 10px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@media (max-width: 600px) {
+    h1 {
+        font-size: 1.5em;
+    }
+
+    button, input[type="text"] {
+        font-size: 0.8em;
+        padding: 8px 16px;
+    }
+
+    #current-time, #current-date, #current-temperature, #weather-description {
+        font-size: 1.2em;
+    }
+
+    #weather-icon {
+        width: 30px;
+        height: 30px;
+    }
+}
