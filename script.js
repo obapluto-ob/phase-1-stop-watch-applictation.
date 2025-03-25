@@ -132,6 +132,23 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    function saveStopwatch() {
+        fetch("http://localhost:3000/stopwatch", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                startTime: new Date().toISOString(),
+                endTime: new Date().toISOString(),
+                duration: "0m 0s"
+            })
+        })
+        .then(response => response.json())
+        .then(data => console.log("Stopwatch saved:", data))
+        .catch(error => console.error("Error saving stopwatch:", error));
+    }
+
     function toggleDarkMode() {
         document.body.classList.toggle("dark-mode");
     }
