@@ -7,6 +7,30 @@ document.addEventListener("DOMContentLoaded", () => {
     let running = false;
     let showMicroseconds = true;
     let laps = [];
+    let settings = {};
+
+    let countdownTimer;
+    let countdownRunning = false;
+    let intervalTimer;
+    let intervalRunning = false;
+
+    function loadSettings() {
+        fetch("settings.json")
+            .then(response => response.json())
+            .then(data => {
+                settings = data;
+                applySettings();
+            })
+            .catch(error => console.error("Error loading settings:", error));
+    }
+
+    function applySettings() {
+        if (settings.darkMode) {
+            document.body.classList.add("dark-mode");
+        }
+        showMicroseconds = settings.showMicroseconds;
+        document.getElementById("city").value = settings.defaultCity;
+    }
 
     function updateDisplay() {
         let display = document.getElementById("display");
@@ -42,6 +66,11 @@ document.addEventListener("DOMContentLoaded", () => {
     function stopStopwatch() {
         clearInterval(timer);
         running = false;
+        saveStopwatch({
+            startTime: new Date().toISOString(),
+            endTime: new Date().toISOString(),
+            duration: `${hours}h ${minutes}m ${seconds}s`
+        });
     }
 
     function resetStopwatch() {
@@ -54,12 +83,15 @@ document.addEventListener("DOMContentLoaded", () => {
         laps = [];
         updateDisplay();
         updateLaps();
+        saveLaps(); // Save the empty laps array to reset the stored laps
     }
 
     function lapStopwatch() {
         if (running) {
-            laps.push(document.getElementById("display").textContent);
+            const lapTime = document.getElementById("display").textContent;
+            laps.push({ id: generateId(), time: lapTime });
             updateLaps();
+            saveLaps();
         }
     }
 
@@ -67,9 +99,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const lapsList = document.getElementById("laps-list");
         lapsList.innerHTML = '';
         laps.forEach((lap, index) => {
-            const li = document.createElement("li");
-            li.textContent = `Lap ${index + 1}: ${lap}`;
-            lapsList.appendChild(li);
+            if (lap && lap.time) {
+                const li = document.createElement("li");
+                li.textContent = `Lap ${index + 1}: ${lap.time}`;
+                lapsList.appendChild(li);
+            }
         });
     }
 
@@ -132,25 +166,128 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    function saveStopwatch() {
-        fetch("http://localhost:3000/stopwatch", {
+    async function saveStopwatch(data) {
+        console.log("Sending request to JSON Server with data:", data);
+
+        try {
+            const response = await fetch("http://localhost:3000/stopwatch", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data),
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            console.log("Stopwatch saved:", await response.json());
+        } catch (error) {
+            console.error("Error saving stopwatch:", error);
+            alert("Failed to save stopwatch data. Please check the server.");
+        }
+    }
+
+    function loadStopwatch() {
+        fetch("http://localhost:3000/stopwatch")
+            .then(response => response.json())
+            .then(data => {
+                if (data.length > 0) {
+                    const lastEntry = data[data.length - 1];
+                    console.log("Loaded stopwatch data:", lastEntry);
+                    // Update the stopwatch display with the loaded data
+                    // This is a placeholder, you can customize it as needed
+                    document.getElementById("display").textContent = `${lastEntry.duration}`;
+                }
+            })
+            .catch(error => console.error("Error loading stopwatch data:", error));
+    }
+
+    function saveLaps() {
+        fetch("http://localhost:3000/laps", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({
-                startTime: new Date().toISOString(),
-                endTime: new Date().toISOString(),
-                duration: "0m 0s"
-            })
+            body: JSON.stringify(laps)
         })
         .then(response => response.json())
-        .then(data => console.log("Stopwatch saved:", data))
-        .catch(error => console.error("Error saving stopwatch:", error));
+        .then(data => console.log("Laps saved:", data))
+        .catch(error => console.error("Error saving laps:", error));
+    }
+
+    function loadLaps() {
+        fetch("http://localhost:3000/laps")
+            .then(response => response.json())
+            .then(data => {
+                laps = data;
+                updateLaps();
+                console.log("Loaded laps data:", data);
+            })
+            .catch(error => console.error("Error loading laps data:", error));
     }
 
     function toggleDarkMode() {
         document.body.classList.toggle("dark-mode");
+    }
+
+    function generateId() {
+        return Math.random().toString(36).substr(2, 4);
+    }
+
+    function startCountdown() {
+        if (!countdownRunning) {
+            countdownRunning = true;
+            let minutes = parseInt(document.getElementById("countdown-minutes").value) || 0;
+            let seconds = parseInt(document.getElementById("countdown-seconds").value) || 0;
+            let totalSeconds = minutes * 60 + seconds;
+
+            countdownTimer = setInterval(() => {
+                if (totalSeconds <= 0) {
+                    clearInterval(countdownTimer);
+                    countdownRunning = false;
+                    document.getElementById("countdown-display").textContent = "00:00";
+                    alert("Countdown finished!");
+                } else {
+                    totalSeconds--;
+                    let min = Math.floor(totalSeconds / 60);
+                    let sec = totalSeconds % 60;
+                    document.getElementById("countdown-display").textContent = `${min.toString().padStart(2, '0')}:${sec.toString().padStart(2, '0')}`;
+                }
+            }, 1000);
+        }
+    }
+
+    function stopCountdown() {
+        clearInterval(countdownTimer);
+        countdownRunning = false;
+    }
+
+    function startInterval() {
+        if (!intervalRunning) {
+            intervalRunning = true;
+            let minutes = parseInt(document.getElementById("interval-minutes").value) || 0;
+            let seconds = parseInt(document.getElementById("interval-seconds").value) || 0;
+            let totalSeconds = minutes * 60 + seconds;
+
+            intervalTimer = setInterval(() => {
+                if (totalSeconds <= 0) {
+                    clearInterval(intervalTimer);
+                    intervalRunning = false;
+                    document.getElementById("interval-display").textContent = "00:00";
+                    alert("Interval finished!");
+                } else {
+                    totalSeconds--;
+                    let min = Math.floor(totalSeconds / 60);
+                    let sec = totalSeconds % 60;
+                    document.getElementById("interval-display").textContent = `${min.toString().padStart(2, '0')}:${sec.toString().padStart(2, '0')}`;
+                }
+            }, 1000);
+        }
+    }
+
+    function stopInterval() {
+        clearInterval(intervalTimer);
+        intervalRunning = false;
     }
 
     setInterval(updateClock, 1000);
@@ -163,4 +300,29 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("microseconds").addEventListener("click", toggleMicroseconds);
     document.getElementById("temperature").addEventListener("click", updateTemperature);
     document.getElementById("toggle-dark-mode").addEventListener("click", toggleDarkMode);
+    document.getElementById("start-countdown").addEventListener("click", startCountdown);
+    document.getElementById("stop-countdown").addEventListener("click", stopCountdown);
+    document.getElementById("start-interval").addEventListener("click", startInterval);
+    document.getElementById("stop-interval").addEventListener("click", stopInterval);
+
+    // Load settings, stopwatch data, and laps when the page loads
+    loadSettings();
+    loadStopwatch();
+    loadLaps();
+});
+
+document.getElementById('start').addEventListener('click', () => {
+    const beepSound = document.getElementById("startSound");
+    if (beepSound) {
+        beepSound.play().catch(error => console.error("Audio play error:", error));
+    }
+});
+
+document.getElementById('stop').addEventListener('click', () => {
+    const beepSound = document.getElementById("stopSound");
+    if (beepSound) {
+        beepSound.play().catch(error => console.error("Audio play error:", error));
+    } else {
+        console.warn("Audio file not found!");
+    }
 });

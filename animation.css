@@ -1,0 +1,55 @@
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@keyframes slideIn {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(0); }
+}
+
+@keyframes slideOut {
+    from { transform: translateX(0); }
+    to { transform: translateX(100%); }
+}
+
+@keyframes colorChange {
+    0% { background-color: #ff6f61; }
+    25% { background-color: #4caf50; }
+    50% { background-color: #2196f3; }
+    75% { background-color: #ffeb3b; }
+    100% { background-color: #9c27b0; }
+}
+
+button {
+    animation: fadeIn 0.5s ease-in, colorChange 4s infinite alternate;
+}
+
+button:hover {
+    animation: slideIn 0.5s ease-in, colorChange 4s infinite alternate;
+}
+
+.container {
+    animation: fadeIn 1s ease-in-out;
+}
+
+.stopwatch {
+    animation: fadeIn 1s ease-in-out, colorChange 4s infinite alternate;
+}
+
+.laps-list {
+    animation: fadeIn 1s ease-in-out;
+}
+
+#display {
+    animation: fadeIn 1s ease-in-out;
+}
+
+#current-time, #current-date, #current-temperature, #weather-description {
+    animation: fadeIn 1s ease-in-out;
+}

@@ -1,8 +1,15 @@
+@font-face {
+    font-family: 'Digital';
+    src: url('fonts/digital.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+} 
+
 body {
     font-family: 'Roboto', sans-serif;
     text-align: center;
-    margin: 20px;
-    background: linear-gradient(135deg, #004d40 0%, #00796b 100%);
+    margin: 10px;
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
     color: #ffffff;
 }
 
@@ -15,17 +22,17 @@ body.dark-mode {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
+    gap: 10px;
 }
 
 .stopwatch {
-    background: #004d40;
+    background: #4caf50;
     display: inline-block;
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
     transition: transform 0.3s ease;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     animation: fadeIn 1s ease-in-out;
 }
 
@@ -34,122 +41,123 @@ body.dark-mode {
 }
 
 h1 {
-    font-size: 2em;
+    font-size: 1.2em;
     color: #ffffff;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    font-family: 'Roboto Mono', monospace;
 }
 
 button, input[type="text"] {
-    font-size: 1em;
-    padding: 10px 20px;
-    margin: 5px;
+    font-size: 0.7em;
+    padding: 5px 10px;
+    margin: 3px;
     cursor: pointer;
     border: none;
-    border-radius: 10px;
-    background-color: #00796b;
+    border-radius: 5px;
+    background-color: #4caf50;
     color: white;
     transition: background-color 0.3s ease, transform 0.3s ease;
     animation: fadeIn 1s ease-in-out;
 }
 
 button:hover, input[type="text"]:hover {
-    background-color: #004d40;
+    background-color: #388e3c;
     transform: scale(1.1);
 }
 
 button:active, input[type="text"]:active {
-    background-color: #00332c;
+    background-color: #2e7d32;
     transform: scale(1.05);
 }
 
 #start {
-    background-color: #388e3c;
+    background-color: #2196f3;
 }
 
 #start:hover {
-    background-color: #2e7d32;
+    background-color: #1976d2;
 }
 
 #start:active {
-    background-color: #1b5e20;
+    background-color: #1565c0;
 }
 
 #stop {
-    background-color: #d32f2f;
+    background-color: #f44336;
 }
 
 #stop:hover {
-    background-color: #c62828;
+    background-color: #d32f2f;
 }
 
 #stop:active {
-    background-color: #b71c1c;
+    background-color: #c62828;
 }
 
 #reset {
-    background-color: #fbc02d;
+    background-color: #ffeb3b;
     color: black;
 }
 
 #reset:hover {
-    background-color: #f9a825;
+    background-color: #fdd835;
 }
 
 #reset:active {
-    background-color: #f57f17;
+    background-color: #fbc02d;
 }
 
 #microseconds {
-    background-color: #0288d1;
+    background-color: #9c27b0;
 }
 
 #microseconds:hover {
-    background-color: #0277bd;
-}
-
-#microseconds:active {
-    background-color: #01579b;
-}
-
-#temperature {
     background-color: #8e24aa;
 }
 
-#temperature:hover {
+#microseconds:active {
     background-color: #7b1fa2;
 }
 
+#temperature {
+    background-color: #00bcd4;
+}
+
+#temperature:hover {
+    background-color: #00acc1;
+}
+
 #temperature:active {
-    background-color: #6a1b9a;
+    background-color: #0097a7;
 }
 
 #toggle-dark-mode {
-    background-color: #004d40;
+    background-color: #607d8b;
 }
 
 #toggle-dark-mode:hover {
-    background-color: #00332c;
+    background-color: #546e7a;
 }
 
 #toggle-dark-mode:active {
-    background-color: #00251a;
+    background-color: #455a64;
 }
 
 .clock, .calendar, .temperature, .laps {
-    margin-top: 10px;
+    margin-top: 5px;
     animation: fadeIn 1s ease-in-out;
 }
 
 #current-time, #current-date, #current-temperature, #weather-description {
-    font-size: 1.5em;
+    font-size: 1em;
     color: #ffffff;
 }
 
 #weather-icon {
-    width: 40px;
-    height: 40px;
+    width: 60px;
+    height: 60px;
     vertical-align: middle;
-    margin-left: 10px;
+    margin-left: 5px;
 }
 
 @keyframes fadeIn {
@@ -163,20 +171,20 @@ button:active, input[type="text"]:active {
 
 @media (max-width: 600px) {
     h1 {
-        font-size: 1.5em;
+        font-size: 1em;
     }
 
     button, input[type="text"] {
-        font-size: 0.8em;
-        padding: 8px 16px;
+        font-size: 0.6em;
+        padding: 4px 8px;
     }
 
     #current-time, #current-date, #current-temperature, #weather-description {
-        font-size: 1.2em;
+        font-size: 0.8em;
     }
 
     #weather-icon {
-        width: 30px;
-        height: 30px;
+        width: 40px;
+        height: 40px;
     }
 }

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stopwatch</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -38,6 +39,26 @@
             <h2 id="current-temperature">Current Temperature: --°C</h2>
             <p id="weather-description"></p>
             <img id="weather-icon" src="" alt="Weather Icon" style="display: none;">
+        </div>
+
+        <div class="timers">
+            <h2>Timers</h2>
+            <div class="countdown-timer">
+                <h3>Countdown Timer</h3>
+                <input type="number" id="countdown-minutes" placeholder="Minutes">
+                <input type="number" id="countdown-seconds" placeholder="Seconds">
+                <button id="start-countdown">Start Countdown</button>
+                <button id="stop-countdown">Stop Countdown</button>
+                <h3 id="countdown-display">00:00</h3>
+            </div>
+            <div class="interval-timer">
+                <h3>Interval Timer</h3>
+                <input type="number" id="interval-minutes" placeholder="Minutes">
+                <input type="number" id="interval-seconds" placeholder="Seconds">
+                <button id="start-interval">Start Interval</button>
+                <button id="stop-interval">Stop Interval</button>
+                <h3 id="interval-display">00:00</h3>
+            </div>
         </div>
     </div>
 
