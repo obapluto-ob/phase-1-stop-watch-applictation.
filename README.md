@@ -13,12 +13,14 @@ A feature-rich stopwatch application that includes a stopwatch, countdown timer,
 - **Set Timer**: Set a countdown timer with minutes and seconds.
 - **Start/Pause/Resume/Stop**: Control the countdown timer with ease.
 - **Visual Alert**: Displays a flashing "Time's Up!" message when the countdown finishes.
+- **Sound Alert**: Plays a sound notification when the countdown finishes.
 
 ### 3. Interval Timer
 - **Set Timer**: Set an interval timer with minutes, seconds, and a number of cycles.
 - **Start/Pause/Resume/Stop**: Control the interval timer with ease.
 - **Cycle Tracking**: Displays the current cycle and total cycles.
 - **Visual Alert**: Displays a flashing "Time's Up!" message when all cycles are completed.
+- **Sound Alert**: Plays a sound notification when all cycles are completed.
 
 ### 4. Visual Alert System
 - A flashing "Time's Up!" message appears when the countdown or interval timer finishes.
@@ -42,7 +44,7 @@ A feature-rich stopwatch application that includes a stopwatch, countdown timer,
 2. Click the **Start Countdown** button to start the timer.
 3. Use the **Pause Countdown** and **Resume Countdown** buttons to control the timer.
 4. Click the **Stop Countdown** button to stop and reset the timer.
-5. When the timer finishes, a flashing "Time's Up!" message will appear.
+5. When the timer finishes, a flashing "Time's Up!" message will appear, and a sound notification will play.
 
 ### Interval Timer
 1. Enter the desired minutes, seconds, and number of cycles in the input fields.
@@ -50,6 +52,6 @@ A feature-rich stopwatch application that includes a stopwatch, countdown timer,
 3. Use the **Pause Interval** and **Resume Interval** buttons to control the timer.
 4. Click the **Stop Interval** button to stop and reset the timer.
 5. The current cycle and total cycles are displayed during the timer.
-6. When all cycles are completed, a flashing "Time's Up!" message will appear.
+6. When all cycles are completed, a flashing "Time's Up!" message will appear, and a sound notification will play.
 
 ## Project Structure
