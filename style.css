@@ -18,6 +18,15 @@ body.dark-mode {
     color: #ffffff;
 }
 
+button.dark-mode, input[type="text"].dark-mode {
+    background-color: #444;
+    color: #fff;
+}
+
+button.dark-mode:hover, input[type="text"].dark-mode:hover {
+    background-color: #555;
+}
+
 .container {
     display: flex;
     flex-direction: column;
