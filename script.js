@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", () => {
     let running = false, countdownRunning = false, intervalRunning = false;
     let countdownPaused = false, intervalPaused = false;
     let laps = [];
-    const alertSound = document.getElementById("alert-sound");
 
     // Utility Functions
     const formatTime = (totalSeconds) => {
@@ -19,13 +18,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const updateElementText = (id, text) => {
         const element = document.getElementById(id);
         if (element) element.textContent = text;
-    };
-
-    const playSound = (soundId) => {
-        const sound = document.getElementById(soundId);
-        if (sound) {
-            sound.play().catch((error) => console.error(`Audio play error: ${error}`));
-        }
     };
 
     // Utility Function to Show Visual Alert
@@ -65,7 +57,6 @@ document.addEventListener("DOMContentLoaded", () => {
     function stopStopwatch() {
         clearInterval(timer);
         running = false;
-        playSound("stopSound");
     }
 
     function resetStopwatch() {
@@ -105,7 +96,6 @@ document.addEventListener("DOMContentLoaded", () => {
         laps = [];
         const lapsList = document.getElementById("laps-list");
         if (lapsList) lapsList.innerHTML = '';
-        console.log("Laps have been reset.");
     }
 
     // Countdown Timer Functions
@@ -161,8 +151,8 @@ document.addEventListener("DOMContentLoaded", () => {
             const minutes = parseInt(document.getElementById("interval-minutes").value) || 0;
             const seconds = parseInt(document.getElementById("interval-seconds").value) || 0;
             intervalCycles = parseInt(document.getElementById("interval-cycles").value) || 1;
-            intervalRemainingSeconds = minutes * 60 + seconds; // Always reset intervalRemainingSeconds
-            currentCycle = 0; // Always reset currentCycle
+            intervalRemainingSeconds = minutes * 60 + seconds;
+            currentCycle = 0;
 
             function runInterval() {
                 if (currentCycle >= intervalCycles) {
@@ -218,6 +208,39 @@ document.addEventListener("DOMContentLoaded", () => {
         updateElementText("interval-cycle-display", "Cycle: 0/0");
     }
 
+    // Fetch Temperature Function
+    async function fetchTemperature() {
+        const city = document.getElementById("city").value.trim();
+        const apiKey = "436fbb14bfca4e5b8c9133700252903"; // Replace with your actual WeatherAPI key
+        const apiUrl = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${encodeURIComponent(city)}&aqi=no`;
+
+        if (!city) {
+            alert("Please enter a city name.");
+            return;
+        }
+
+        try {
+            const response = await fetch(apiUrl);
+            if (!response.ok) {
+                throw new Error("City not found or API error.");
+            }
+
+            const data = await response.json();
+            const temperature = data.current.temp_c; // Temperature in Celsius
+            const description = data.current.condition.text; // Weather condition description
+            const icon = data.current.condition.icon; // Weather condition icon
+
+            // Update the UI
+            document.getElementById("current-temperature").textContent = `Current Temperature: ${temperature}°C`;
+            document.getElementById("weather-description").textContent = description;
+            document.getElementById("weather-icon").src = `https:${icon}`; // WeatherAPI icons require "https:"
+            document.getElementById("weather-icon").style.display = "inline";
+        } catch (error) {
+            alert(error.message);
+            console.error("Error fetching weather data:", error);
+        }
+    }
+
     // Event Listeners
     document.getElementById("start").addEventListener("click", startStopwatch);
     document.getElementById("stop").addEventListener("click", stopStopwatch);
@@ -235,4 +258,6 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("stop-interval").addEventListener("click", stopInterval);
 
     document.getElementById("reset-laps").addEventListener("click", resetLaps);
+
+    document.getElementById("temperature").addEventListener("click", fetchTemperature);
 });
