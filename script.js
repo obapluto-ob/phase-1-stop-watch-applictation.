@@ -31,6 +31,21 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    // Toggle Dark Mode Function
+    function toggleDarkMode() {
+        document.body.classList.toggle("dark-mode");
+    }
+
+    // Toggle Microseconds Display Function
+    function toggleMicroseconds() {
+        const display = document.getElementById("display");
+        if (display.textContent.includes(".")) {
+            display.textContent = display.textContent.split(".")[0]; // Remove microseconds
+        } else {
+            updateStopwatchDisplay(); // Reapply microseconds
+        }
+    }
+
     // Stopwatch Functions
     function startStopwatch() {
         if (!running) {
@@ -260,4 +275,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("reset-laps").addEventListener("click", resetLaps);
 
     document.getElementById("temperature").addEventListener("click", fetchTemperature);
+
+    document.getElementById("toggle-dark-mode").addEventListener("click", toggleDarkMode);
+    document.getElementById("microseconds").addEventListener("click", toggleMicroseconds);
 });
