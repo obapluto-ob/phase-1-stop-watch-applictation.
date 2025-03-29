@@ -31,6 +31,17 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    // Utility Function to Add Animation
+    const addAnimation = (id, animationName) => {
+        const element = document.getElementById(id);
+        if (element) {
+            element.style.animation = `${animationName} 1s ease-in-out`;
+            setTimeout(() => {
+                element.style.animation = ""; // Reset animation
+            }, 1000);
+        }
+    };
+
     // Toggle Dark Mode Function
     function toggleDarkMode() {
         document.body.classList.toggle("dark-mode");
@@ -97,12 +108,14 @@ document.addEventListener("DOMContentLoaded", () => {
         const min = minutes.toString().padStart(2, '0');
         const hr = hours.toString().padStart(2, '0');
         updateElementText("display", `${hr}:${min}:${sec}.${ms}`);
+        addAnimation("display", "fadeIn");
     }
 
     function updateLaps() {
         const lapsList = document.getElementById("laps-list");
         if (lapsList) {
             lapsList.innerHTML = laps.map((lap, index) => `<li>Lap ${index + 1}: ${lap}</li>`).join('');
+            addAnimation("laps-list", "fadeIn");
         }
     }
 
@@ -128,9 +141,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     countdownPaused = false;
                     updateElementText("countdown-display", "00:00");
                     showVisualAlert(); // Trigger visual alert
+                    addAnimation("countdown-display", "fadeOut");
                 } else {
                     countdownRemainingSeconds--;
                     updateElementText("countdown-display", formatTime(countdownRemainingSeconds));
+                    addAnimation("countdown-display", "fadeIn");
                 }
             }, 1000);
         }
@@ -190,6 +205,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     } else {
                         intervalRemainingSeconds--;
                         updateElementText("interval-display", formatTime(intervalRemainingSeconds));
+                        addAnimation("interval-display", "fadeIn");
                     }
                 }, 1000);
             }
