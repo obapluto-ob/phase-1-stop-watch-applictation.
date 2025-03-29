@@ -161,8 +161,8 @@ document.addEventListener("DOMContentLoaded", () => {
             const minutes = parseInt(document.getElementById("interval-minutes").value) || 0;
             const seconds = parseInt(document.getElementById("interval-seconds").value) || 0;
             intervalCycles = parseInt(document.getElementById("interval-cycles").value) || 1;
-            intervalRemainingSeconds = intervalPaused ? intervalRemainingSeconds : minutes * 60 + seconds;
-            currentCycle = intervalPaused ? currentCycle : 0;
+            intervalRemainingSeconds = minutes * 60 + seconds; // Always reset intervalRemainingSeconds
+            currentCycle = 0; // Always reset currentCycle
 
             function runInterval() {
                 if (currentCycle >= intervalCycles) {
