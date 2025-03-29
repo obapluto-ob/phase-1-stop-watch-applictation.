@@ -2,8 +2,13 @@ function testStartTimer() {
     console.log("Testing Start Timer...");
     startStopwatch();
     setTimeout(() => {
+        const elapsedTime = getElapsedTime(); // Assuming getElapsedTime() exists
+        if (elapsedTime > 0) {
+            console.log("Timer started successfully.");
+        } else {
+            console.error("Failed to start the timer.");
+        }
         stopStopwatch();
-        console.log("Timer started and stopped successfully.");
     }, 1000);
 }
 
@@ -12,7 +17,15 @@ function testStopTimer() {
     startStopwatch();
     setTimeout(() => {
         stopStopwatch();
-        console.log("Timer stopped successfully.");
+        const elapsedTime = getElapsedTime();
+        const stoppedTime = elapsedTime;
+        setTimeout(() => {
+            if (getElapsedTime() === stoppedTime) {
+                console.log("Timer stopped successfully.");
+            } else {
+                console.error("Failed to stop the timer.");
+            }
+        }, 500);
     }, 1000);
 }
 
@@ -21,7 +34,11 @@ function testResetTimer() {
     startStopwatch();
     setTimeout(() => {
         resetStopwatch();
-        console.log("Timer reset successfully.");
+        if (getElapsedTime() === 0) {
+            console.log("Timer reset successfully.");
+        } else {
+            console.error("Failed to reset the timer.");
+        }
     }, 1000);
 }
 
@@ -29,8 +46,12 @@ function testLapTimer() {
     console.log("Testing Lap Timer...");
     startStopwatch();
     setTimeout(() => {
-        lapStopwatch();
-        console.log("Lap recorded successfully.");
+        const lapTime = lapStopwatch();
+        if (lapTime > 0) {
+            console.log("Lap recorded successfully.");
+        } else {
+            console.error("Failed to record lap.");
+        }
         stopStopwatch();
     }, 1000);
 }
