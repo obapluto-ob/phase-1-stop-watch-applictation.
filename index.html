@@ -12,19 +12,22 @@
     <div class="container">
         <div class="stopwatch">
             <h1 id="display">00:00:00.000</h1>
-            <button id="start">Start</button>
-            <button id="stop">Stop</button>
-            <button id="reset">Reset</button>
-            <button id="lap">Lap</button>
-            <button id="microseconds">Toggle Microseconds</button>
-            <input type="text" id="city" placeholder="Enter city name">
-            <button id="temperature">Show Temperature</button>
-            <button id="toggle-dark-mode">Toggle Dark Mode</button>
+            <nav>
+                <button id="start" aria-label="Start Stopwatch">Start</button>
+                <button id="stop" aria-label="Stop Stopwatch">Stop</button>
+                <button id="reset" aria-label="Reset Stopwatch">Reset</button>
+                <button id="lap" aria-label="Record Lap">Lap</button>
+                <button id="microseconds" aria-label="Toggle Microseconds Display">Toggle Microseconds</button>
+            </nav>
+            <input type="text" id="city" placeholder="Enter city name" aria-label="City Name">
+            <button id="temperature" aria-label="Show Temperature">Show Temperature</button>
+            <button id="toggle-dark-mode" aria-label="Toggle Dark Mode">Toggle Dark Mode</button>
         </div>
 
         <div class="laps">
             <h2>Laps</h2>
             <ul id="laps-list"></ul>
+            <button id="reset-laps">Reset Laps</button>
         </div>
 
         <div class="clock">
@@ -48,6 +51,8 @@
                 <input type="number" id="countdown-minutes" placeholder="Minutes">
                 <input type="number" id="countdown-seconds" placeholder="Seconds">
                 <button id="start-countdown">Start Countdown</button>
+                <button id="pause-countdown">Pause Countdown</button>
+                <button id="resume-countdown">Resume Countdown</button>
                 <button id="stop-countdown">Stop Countdown</button>
                 <h3 id="countdown-display">00:00</h3>
             </div>
@@ -55,9 +60,13 @@
                 <h3>Interval Timer</h3>
                 <input type="number" id="interval-minutes" placeholder="Minutes">
                 <input type="number" id="interval-seconds" placeholder="Seconds">
+                <input type="number" id="interval-cycles" placeholder="Cycles">
                 <button id="start-interval">Start Interval</button>
+                <button id="pause-interval">Pause Interval</button>
+                <button id="resume-interval">Resume Interval</button>
                 <button id="stop-interval">Stop Interval</button>
                 <h3 id="interval-display">00:00</h3>
+                <h4 id="interval-cycle-display">Cycle: 0/0</h4>
             </div>
         </div>
     </div>
